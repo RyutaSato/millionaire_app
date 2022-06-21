@@ -1,65 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:millionaire/card.dart';
+import 'package:millionaire/loading_page.dart';
 import 'package:millionaire/login_page.dart';
+import 'package:millionaire/on_game_page.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  // Step 3
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.landscapeLeft,
     DeviceOrientation.landscapeRight,
-  ]).then((value) => runApp(const MyApp()));
+  ]).then((value) =>
+      runApp(
+        const ProviderScope(child: MyApp(),)
+    ),
+  );
    //runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+Map<String, WidgetBuilder> routes = {
+  "/loginPage": (context) => const LoginPage(),
+  "/gamePage": (context) => const OnGamePage(),
+  "/loading": (context) => LoadingPage()
+};
+
+class MyApp extends HookConsumerWidget {
   const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
       title: 'Flutter Demo',
+      routes: routes,
+      home: const LoginPage(),
+      initialRoute: "/loginPage",
       theme: ThemeData(
+        useMaterial3: true,
         primarySwatch: Colors.blue,
       ),
-      home: const LoginPage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  Iterable<Widget> cardIterable(int n) sync*{
-    for(int i=0; i < n; i++){
-      yield CardWidget('$i');
-    }
-}
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          //const Spacer(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              for(final card in cardIterable(10))
-                Padding(padding: const EdgeInsets.all(5), child: card,)
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
