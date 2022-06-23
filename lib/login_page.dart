@@ -36,6 +36,7 @@ class _LoginPageState extends State<LoginPage> {
           onTimeout: (){return Future(() => http.Response("", 504));});
     if(response.statusCode == 200) {
       isSigned = true;
+      print(response.body.toString());
     }
     print(response.statusCode.toString());
   }
