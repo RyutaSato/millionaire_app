@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'card.dart';
+import 'card_component.dart';
 
 class OnGamePage extends StatefulWidget {
   const OnGamePage({Key? key}) : super(key: key);

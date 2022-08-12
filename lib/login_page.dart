@@ -1,8 +1,12 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:millionaire/api/websocket_handler.dart';
+import 'package:web_socket_channel/io.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -26,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
     //http request は後ほど作る
     // !!!! Android Emulator のストループバックインターフェイスは
     // http://10.0.2.2 NOT http://127.0.0.1:8000
-    Uri url = Uri.parse('http://10.0.2.2:8000/login/');
+    Uri url = Uri.parse('http://127.0.0.1:8000/login/');
     Map<String, String> userInfo = {
       'username': username,
       'password': password,
@@ -35,8 +39,15 @@ class _LoginPageState extends State<LoginPage> {
         .timeout(const Duration(seconds: 5),
           onTimeout: (){return Future(() => http.Response("", 504));});
     if(response.statusCode == 200) {
+      Map<String, dynamic> responseJson = jsonDecode(response.body);
       isSigned = true;
       print(response.body.toString());
+      // will be recycled
+      final url = Uri.parse(responseJson['server']! + responseJson['token']!);
+      print(url);
+      var channel = IOWebSocketChannel.connect(url);
+      //var webSocketHandler = WebSocketHandler(channel: channel);
+      //await webSocketHandler.listen();
     }
     print(response.statusCode.toString());
   }
