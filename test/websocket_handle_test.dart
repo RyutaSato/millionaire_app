@@ -1,4 +1,5 @@
-import '../lib/api/websocket_handler.dart';
+import 'package:flutter/foundation.dart';
+import 'package:millionaire/repository/remote/websocket_handler.dart';
 void main() {
   String message1;
   message1 = """{
@@ -25,8 +26,12 @@ void main() {
     }
   ]
 }""";
-  print(message1);
+  if (kDebugMode) {
+    print(message1);
+  }
   var parser = ResponseModelFromServer(message:message1);
-  print(parser.serverTime.toLocal());
-  print(parser.duration.inDays);
+  if (kDebugMode) {
+    print(parser.serverTime.toLocal());
+    print(parser.duration.inDays);
+  }
 }

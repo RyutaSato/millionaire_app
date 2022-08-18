@@ -5,7 +5,7 @@ import 'dart:ffi';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:millionaire/api/websocket_handler.dart';
+import 'package:millionaire/repository/remote/websocket_handler.dart';
 import 'package:web_socket_channel/io.dart';
 
 class LoginPage extends StatefulWidget {

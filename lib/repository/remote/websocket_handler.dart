@@ -1,13 +1,13 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:web_socket_channel/io.dart';
-import 'package:web_socket_channel/status.dart' as status;
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
+// import 'package:web_socket_channel/status.dart' as status;
+// import 'package:freezed_annotation/freezed_annotation.dart';
+// import 'package:web_socket_channel/web_socket_channel.dart';
 
-import 'action_info.dart';
+// DUPLICATED
+//import '../model/action_info.dart';
 /*
 class WebSocketHandler{
   static const url = 'ws://localhost:8081'; // fetch from login response
@@ -28,6 +28,14 @@ class WebSocketHandler{
 }
 
  */
+//FUTURE DEPRECATION Instant class
+class ActionInfo{
+  final Map<String, dynamic> body;
+
+  ActionInfo({required this.body});
+}
+// DEPRECATED
+// TODO: Refactor Freezed Model
 class ResponseModelFromServer{
 // [MUST] This class must not be changed in the future.
   final String message;
