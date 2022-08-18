@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:millionaire/loading_page.dart';
-import 'package:millionaire/login_page.dart';
-import 'package:millionaire/on_game_page.dart';
+import 'package:millionaire/view/loading/loading_page.dart';
+import 'package:millionaire/view/signin/login_page.dart';
+import 'package:millionaire/view/game/on_game_page.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void main() {
